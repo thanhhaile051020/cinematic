@@ -1,3 +1,70 @@
+use backoffice;
+
+CREATE
+ TABLE Theaterclustersystem (
+	theaterclustersystemid varchar(40) PRIMARY KEY,
+	theaterclustersystemname varchar(255) not null,
+   logo varchar(255) ,
+    aliases varchar(255) ,
+  status char(1) not null,
+  createdby varchar(40),
+  createdat timestamp,
+  updatedby varchar(40),
+  updatedat timestamp
+);
+
+CREATE TABLE Theatercluster (
+    theaterclusterid VARCHAR(40) PRIMARY KEY,
+    theaterclustername VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    status CHAR(1) NOT NULL,
+    createdby VARCHAR(40),
+    createdat TIMESTAMP,
+    updatedby VARCHAR(40),
+    updatedat TIMESTAMP,
+    FOREIGN KEY (theaterclusterid)
+        REFERENCES Theaterclustersystem (theaterclustersystemid)
+);
+
+CREATE
+ TABLE Theater (
+	theaterid varchar(40) PRIMARY KEY,
+	theatername varchar(255) not null,
+    seats varchar(20),
+  status char(1) not null,
+  createdby varchar(40),
+  createdat timestamp,
+  updatedby varchar(40),
+  updatedat timestamp,
+  FOREIGN KEY (theaterid) REFERENCES Theatercluster(theaterclusterid)
+);
+
+CREATE
+ TABLE Seattype (
+	Seattypeid varchar(40) PRIMARY KEY,
+	Seattypename varchar(255) not null
+);
+
+CREATE
+ TABLE Seat (
+ 	theaterid varchar(40),
+	seatid varchar(40) PRIMARY KEY,
+	seatname varchar(255) not null,
+    seattype varchar(40) ,
+    currentuser varchar(40) ,
+  status char(1) not null,
+  createdby varchar(40),
+  createdat timestamp,
+  updatedby varchar(40),
+  updatedat timestamp,
+  FOREIGN KEY (currentuser) REFERENCES users(userid),
+   FOREIGN KEY (theaterid) REFERENCES Theater(theaterid)
+)
+
+
+
+
+
 CREATE TABLE modules (
   moduleid varchar(40) PRIMARY KEY,
   modulename varchar(255) not null,
