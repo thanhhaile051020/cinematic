@@ -6,6 +6,7 @@ import { Conf, useLDAP } from 'ldap-plus';
 import { createChecker, DB } from 'query-core';
 import { TemplateMap } from 'query-mappers';
 import { Authorize, Authorizer, PrivilegeLoader, useToken } from 'security-express';
+import { TheaterclustersystemController, useTheaterclustersystemController } from './theatersystem';
 import { check } from 'types-validation';
 import { createValidator } from 'xvalidators';
 import { AuditLogController, useAuditLogController } from './audit-log';
@@ -34,6 +35,7 @@ export interface Context {
   privilege: PrivilegeController;
   role: RoleController;
   user: UserController;
+  theatersystem:TheaterclustersystemController;
   auditLog: AuditLogController;
 }
 export function useContext(db: DB, logger: Logger, midLogger: Middleware, conf: Config, mapper?: TemplateMap): Context {
@@ -57,8 +59,9 @@ export function useContext(db: DB, logger: Logger, midLogger: Middleware, conf: 
 
   const role = useRoleController(logger.error, db, mapper);
   const user = useUserController(logger.error, db, mapper);
+  const theatersystem = useTheaterclustersystemController(logger.error, db, mapper);
 
   const auditLog = useAuditLogController(logger.error, db);
 
-  return { health, log, middleware, authorize: authorizer.authorize, authentication, privilege, role, user, auditLog };
+  return { health, log, middleware ,authorize: authorizer.authorize, authentication, privilege, role, user,theatersystem, auditLog };
 }

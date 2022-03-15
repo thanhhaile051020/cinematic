@@ -39,7 +39,7 @@ export const config = {
     host: '127.0.0.1',
     port: 3306,
     user: 'root',
-    password: 'abcd1234',
+    password: 'Root/123',
     database: 'backoffice',
     multipleStatements: true,
   },

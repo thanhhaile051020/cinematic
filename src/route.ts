@@ -38,4 +38,15 @@ export function route(app: Application, ctx: Context, secure: boolean): void {
   get(app, '/audit-logs', readAuditLog, ctx.auditLog.search, secure);
   get(app, '/audit-logs/search', readAuditLog, ctx.auditLog.search, secure);
   post(app, '/audit-logs/search', readAuditLog, ctx.auditLog.search, secure);
+
+  const readTheater = ctx.authorize('theater', read);
+  const writeTheater = ctx.authorize('theater', write);
+  get(app, '/theaters', readTheater, ctx.theatersystem.all, secure);
+  post(app, '/theaters/search', readUser, ctx.theatersystem.search, secure);
+  get(app, '/theaters/search', readUser, ctx.theatersystem.search, secure);
+  get(app, '/theaters/:id', readUser, ctx.theatersystem.load, secure);
+  post(app, '/theaters', writeUser, ctx.theatersystem.create, secure);
+  put(app, '/theaters/:id', writeUser, ctx.theatersystem.update, secure);
+  patch(app, '/theaters/:id', writeUser, ctx.theatersystem.patch, secure);
+  del(app, '/theaters/:id', writeUser, ctx.theatersystem.delete, secure);
 }
